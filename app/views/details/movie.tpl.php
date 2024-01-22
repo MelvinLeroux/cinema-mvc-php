@@ -15,7 +15,7 @@
     <a href="<?= $router->generate('home') ?>">
             <p class="logo">Amaflix <span>+</span></p>
         </a>
-        <form class="searchbar" action="">
+        <form class="searchbar" action="<?= $router->generate('search') ?>">
             <label for="search">Rechercher un film</label>
             <div class="search-container">
                 <input placeholder="Exemple : Le voyage de Chihiro" type="text" name="search" id="search">

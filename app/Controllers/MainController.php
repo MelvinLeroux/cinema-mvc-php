@@ -2,9 +2,9 @@
 
 namespace App\Controllers;
 
-use App\Models\Movie as ModelsMovie;
+use App\Models\Movie;
 use App\Models\People;
-use Movie;
+
 use PDO;
 class MainController extends CoreController {
 
@@ -22,7 +22,7 @@ class MainController extends CoreController {
     {
         if (isset($_GET['search'])){
             $params = $_GET['search'];
-            $homeSearch = new ModelsMovie();
+            $homeSearch = new Movie();
             $result = $homeSearch->searchByTitle($params);
             
         }
@@ -34,7 +34,7 @@ class MainController extends CoreController {
         $this->show('main/result', $data);
     }
     public function movieAction($params){
-        $movieModel = new ModelsMovie();
+        $movieModel = new Movie();
         $peopleModel = new People();
         $movieTodisplay = $movieModel->findMovie($params['id']);
         $directorToDisplay = $peopleModel->findDirectorByMovie($params['id']);
