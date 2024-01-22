@@ -4,7 +4,7 @@
         <p class="subtitle">Tous vos films, depuis votre canapé !</p>
     </header>
     <main>
-        <form class="home-search searchbar" action="">
+        <form class="home-search searchbar" action="<?= $router->generate('search') ?>">
             <label for="search">Rechercher un film</label>
             <div class="search-container">
                 <input placeholder="Exemple : Le voyage de Chihiro" type="text" name="search" id="search">

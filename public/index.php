@@ -22,6 +22,15 @@ $router->map(
     'home'
 );
 
+$router->map(
+    'GET',
+    '/results',
+    [
+        'controller' => 'MainController',
+        'method' => 'searchAction'
+    ],
+    'search'
+);
 
 
 $match = $router->match();
