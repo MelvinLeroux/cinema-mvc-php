@@ -37,7 +37,7 @@ body {
 }
 
 body {
-    background-image: var(--gradient) , url(../images/bg-home.jpg);
+    background-image: var(--gradient) , url(../images/bgimgmvccinema.jpeg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% 100%;

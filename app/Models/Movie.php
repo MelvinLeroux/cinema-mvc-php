@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Models;
-
 use PDO;
+use App\Controllers\CoreController;
 use App\Controllers\MainController;
 use App\Utils\Database;
 
-class Movie extends MainController {
+Class Movie{
     private $id;
     private $title;
     private $synopsis;
@@ -19,7 +19,9 @@ class Movie extends MainController {
     private $composer;
     private $director;
 
-/**
+
+    
+    /**
      * Get the value of id
      */ 
     public function getId()
@@ -200,10 +202,14 @@ class Movie extends MainController {
         
         return $this;
     }
+    
     /**
      * Get the value of composer
      */ 
-    
+    public function getComposer()
+    {
+    return new People ($this->composer);
+    }
 
     /**
      * Set the value of composer
@@ -220,7 +226,10 @@ class Movie extends MainController {
     /**
      * Get the value of director
      */ 
-    
+    public function getDirector()
+    {
+        return new People ($this->director);
+    }
     
     /**
      * Set the value of director
@@ -234,7 +243,10 @@ class Movie extends MainController {
                 return $this;
     }
 
-    
+    public function getActors()
+    {
+        return new People ($this->director);
+    }
     
     /**
      * Set the value of director
@@ -277,4 +289,5 @@ class Movie extends MainController {
             return $movie;
 
     }
+        
 }

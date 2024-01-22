@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Movie as ModelsMovie;
+use App\Models\People;
 use Movie;
 use PDO;
 class MainController extends CoreController {
@@ -14,7 +15,7 @@ class MainController extends CoreController {
      */
     public function homeAction()
     {
-        dump('string');
+       
         $this->show('main/home');
     }
     public function searchAction()
@@ -31,5 +32,14 @@ class MainController extends CoreController {
         $data = [];
         $data['result'] = $result;        
         $this->show('main/result', $data);
+    }
+    public function movieAction($params){
+        $movieModel = new ModelsMovie();
+        $peopleModel = new People();
+        $movieTodisplay = $movieModel->findMovie($params['id']);
+        $directorToDisplay = $peopleModel->findDirectorByMovie($params['id']);
+        $composerToDIsplay = $peopleModel->findComposerByMovie(($params['id']));
+        $actorsToDisplay = $peopleModel->findactorsbyMovie($params['id']);
+        $this->show ('details/movie',['movie' => $movieTodisplay,'director' => $directorToDisplay, 'composer'=>$composerToDIsplay, 'actors'=>$actorsToDisplay,]);
     }
 }

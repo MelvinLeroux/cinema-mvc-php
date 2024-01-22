@@ -32,6 +32,16 @@ $router->map(
     'search'
 );
 
+$router->map(
+    'GET',  // Méthode HTTP de la requete (get ou post)
+    '/movie/[i:id]',  // url de la route (/ = home)
+    // Tableau contenant le controller et la méthode liée à la page
+    [    
+        'controller' => 'MainController',
+        'method' => 'movieAction'
+    ],
+    'movie'
+);
 
 $match = $router->match();
 
