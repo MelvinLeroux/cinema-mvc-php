@@ -1,0 +1,13 @@
+{
+    "name": "melvinleroux/cinemamvc",
+    "description": "creation of a mvc for movies from scratch",
+    "require": {
+        "symfony/var-dumper": "^7.0",
+        "altorouter/altorouter": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Melvinleroux\\Cinemamvc\\": "app/"
+        }
+    }
+}

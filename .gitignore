@@ -1,0 +1,5 @@
+vendor/
+config.ini
+import.php
+composer.lock
+docs
