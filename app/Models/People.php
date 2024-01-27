@@ -5,14 +5,12 @@ use App\Utils\Database;
 use PDO;
 Class People {
     private $id;
-    private $title;
-
     private $name;
     private $picture_url;
+    private $title;
     
     public function findDirectorByMovie($id){
         $pdo = Database::getPDO();
-
             // la requête
             $sql = 'SELECT  people.name, people.picture_url, movies.title
             FROM `movies`
@@ -24,9 +22,9 @@ Class People {
             dump($director);
             return $director;
     }
+
     public function findComposerByMovie($id){
         $pdo = Database::getPDO();
-
             // la requête
             $sql = 'SELECT  people.name, people.picture_url
             FROM `movies`
@@ -39,21 +37,17 @@ Class People {
             if (isset($composer)){   
             return $composer;
            } else 
-            return false;
-                
-
+            return false;                
     }
 
     public function findactorsbyMovie($id){
         $pdo = Database::getPDO();
-
             // la requête
             $sql = "SELECT p.id, p.name, p.picture_url FROM people p INNER JOIN movie_actors a ON a.actor_id = p.id INNER JOIN movies m ON m.id = a.movie_id WHERE m.id = $id ORDER BY a.order ASC" ;
             // on excéute la requête via PDO, on récupère un objet $pdoStatement
             $pdoStatement = $pdo->query($sql);
             // on utilise fetchAll pour récupérer les données depuis $pdoStatement
-            $actors = $pdoStatement->fetchAll(PDO::FETCH_CLASS, self::class);
-            
+            $actors = $pdoStatement->fetchAll(PDO::FETCH_CLASS, self::class);      
             return $actors;
     }
     

@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NetPrime +</title>
-    <link rel="stylesheet" href="<?= $absoluteUrl ?>/css/reset.css">
-    <link rel="stylesheet" href="<?= $absoluteUrl ?>/css/fontawesome/css/fontawesome.css">
-    <link rel="stylesheet" href="<?= $absoluteUrl ?>/css/fontawesome/css/solid.css">
-    <link rel="stylesheet" href="<?= $absoluteUrl ?>/css/style.css">
+    <link rel="stylesheet" href="<?=$assetsBaseUri?>css/reset.css">
+    <link rel="stylesheet" href="<?=$assetsBaseUri?>css/fontawesome/css/fontawesome.css">
+    <link rel="stylesheet" href="<?=$assetsBaseUri?>css/fontawesome/css/solid.css">
+    <link rel="stylesheet" href="<?=$assetsBaseUri?>css/style.css">
 </head>
 <!-- <body class="<?= $viewName ?>" style="" > -->
     <header class="classic-header">
         <a href="<?= $router->generate('home') ?>">
-        <p class="logo">Amaflix <span>+</span></p>
+            <p class="logo">Amaflix <span>+</span></p>
         </a>
         <form class="searchbar" action="<?= $router->generate('search') ?>">
             <label for="search">Rechercher un film</label>

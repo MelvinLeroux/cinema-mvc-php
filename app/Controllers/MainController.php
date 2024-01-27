@@ -7,7 +7,6 @@ use App\Models\People;
 
 use PDO;
 class MainController extends CoreController {
-
     /**
      * Méthode qui se charge d'afficher la page d'accueil
      *
@@ -23,8 +22,7 @@ class MainController extends CoreController {
         if (isset($_GET['search'])){
             $params = $_GET['search'];
             $homeSearch = new Movie();
-            $result = $homeSearch->searchByTitle($params);
-            
+            $result = $homeSearch->searchByTitle($params);   
         }
         else {
             echo "Erreur 404 - la page n'existe pas";
@@ -33,13 +31,14 @@ class MainController extends CoreController {
         $data['result'] = $result;        
         $this->show('main/result', $data);
     }
-    public function movieAction($params){
+    public function movieAction($id){
         $movieModel = new Movie();
         $peopleModel = new People();
-        $movieTodisplay = $movieModel->findMovie($params['id']);
-        $directorToDisplay = $peopleModel->findDirectorByMovie($params['id']);
-        $composerToDIsplay = $peopleModel->findComposerByMovie(($params['id']));
-        $actorsToDisplay = $peopleModel->findactorsbyMovie($params['id']);
+        $movieTodisplay = $movieModel->findMovie($id);
+        $directorToDisplay = $peopleModel->findDirectorByMovie($id);
+        $composerToDIsplay = $peopleModel->findComposerByMovie($id);
+        $actorsToDisplay = $peopleModel->findactorsbyMovie($id);
+        
         $this->show ('details/movie',['movie' => $movieTodisplay,'director' => $directorToDisplay, 'composer'=>$composerToDIsplay, 'actors'=>$actorsToDisplay,]);
     }
 }

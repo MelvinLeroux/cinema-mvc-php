@@ -2,8 +2,6 @@
 
 namespace App\Models;
 use PDO;
-use App\Controllers\CoreController;
-use App\Controllers\MainController;
 use App\Utils\Database;
 
 Class Movie{
@@ -260,12 +258,10 @@ Class Movie{
                 return $this;
     }
 
-
     public function searchByTitle($params)
         {
             // on récupère PDO depuis Database
             $pdo = Database::getPDO();
-
             // la requête
             $sql = "SELECT * FROM `movies` WHERE `title` lIKE '%$params%'";
             // on excéute la requête via PDO, on récupère un objet $pdoStatement
@@ -279,7 +275,6 @@ Class Movie{
         
     public function findMovie($id){
         $pdo = Database::getPDO();
-
             // la requête
             $sql = "SELECT * FROM `movies` WHERE `id`= $id ";
             // on excéute la requête via PDO, on récupère un objet $pdoStatement
@@ -287,7 +282,6 @@ Class Movie{
             // on utilise fetchAll pour récupérer les données depuis $pdoStatement
             $movie = $pdoStatement->fetchObject(self::class);
             return $movie;
-
     }
         
 }

@@ -1,15 +1,19 @@
 <?php 
 
-
 require __DIR__.'/../vendor/autoload.php';
-
 
 $router = new AltoRouter();
 
 //! ATTENTION, si la partie fixe (BASE_URI) contient des caractères spéciaux ou des espaces, AltoRouter ne fonctionne pas ! 
-$router->setBasePath($_SERVER['BASE_URI']);
-
-
+// $router->setBasePath($_SERVER['BASE_URI']);
+if (array_key_exists('BASE_URI', $_SERVER)) {
+    // Alors on définit le basePath d'AltoRouter
+    $router->setBasePath($_SERVER['BASE_URI']);
+    // ainsi, nos routes correspondront à l'URL, après la suite de sous-répertoire
+} else { // sinon
+    // On donne une valeur par défaut à $_SERVER['BASE_URI'] car c'est utilisé dans le CoreController
+    $_SERVER['BASE_URI'] = '/';
+}
 
 $router->map(
     'GET',  
@@ -45,24 +49,8 @@ $router->map(
 
 $match = $router->match();
 
-
-
-
-
 // ---- DISPATCHER ----- 
-if($match !== false) {
-  
-    $controllerToUse = 'App\Controllers\\' . $match['target']['controller'];
-    // dd($router,$match, $match['target'], $match['target']['controller'],$controllerToUse);
-    $methodToUse = $match['target']['method'];
-   
-    $params = $match['params'];
-  
-    $controller = new $controllerToUse();
-
-    $controller->$methodToUse($params);
-   
-
-} else {
-    echo "Erreur 404 - la page n'existe pas";
-}
+$dispatcher = new Dispatcher($match, 'ErrorController::err404');
+$dispatcher->setControllersNamespace('App\Controllers');
+$dispatcher->setControllersArguments($router, $match['name']);
+$dispatcher->dispatch();

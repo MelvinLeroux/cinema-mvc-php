@@ -10,9 +10,18 @@
     <link rel="stylesheet" href="css/fontawesome/css/solid.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="search-result" style="background-image: var(--gradient), url('https://image.tmdb.org/t/p/original/<?=$movie->getBackgroundUrl()?>');">
+<body
+    class="search-result" 
+    <?php if (!null==($movie->getBackgroundUrl())): ?>
+        style="background-image: var(--gradient),
+        url('https://image.tmdb.org/t/p/original/<?=$movie->getBackgroundUrl()?>');"
+    <?php else :?>
+        style="background-image: var(--gradient),
+        url(../images/bgimgmvccinema.jpeg);" ?
+    <?php endif?>
+>    
     <header class="classic-header">
-    <a href="<?= $router->generate('home') ?>">
+        <a href="<?= $router->generate('home') ?>">
             <p class="logo">Amaflix <span>+</span></p>
         </a>
         <form class="searchbar" action="<?= $router->generate('search') ?>">
@@ -27,8 +36,10 @@
         <div class="container">
             <div class="movie-wrapper">
                 <section class="poster">
-                    <img src="https://image.tmdb.org/t/p/original/<?= $movie->getPosterUrl() ?>" alt="Le voyage de Chihiro">
-                    <i class="fa-regular fa-circle-play"></i>
+                    <?php if (!null==($movie->getPosterUrl())): ?>
+                        <img src="https://image.tmdb.org/t/p/original/<?= $movie->getPosterUrl() ?>" alt="<?= $movie->getTitle() ?>">
+                        <i class="fa-regular fa-circle-play"></i>
+                    <?php endif ?>
                 </section>
                 <section class="details">
                     <h1 class="movie-title"><?= $movie->getTitle() ?></h1>
@@ -78,26 +89,21 @@
                         <ul>
                             <?php foreach ($viewData['actors'] as $actor) :?>
                                <?php if (null==($actor->getPicture_url())) :?>
-                                <li>
-                                    <h3><?= $actor->getName()?></h3>
-                                </li>
+                                    <li>
+                                        <h3><?= $actor->getName()?></h3>
+                                    </li>
                                 <?php else: ?>
                                     <li>
-                                    <h3><?= $actor->getName()?></h3>
-                                    <img src="https://image.tmdb.org/t/p/original/<?= $actor->getPicture_url()?>" alt="Rumi Hiiragi">
+                                        <h3><?= $actor->getName()?></h3>
+                                        <img src="https://image.tmdb.org/t/p/original/<?= $actor->getPicture_url()?>" alt="Rumi Hiiragi">
+                                    </li>
                                 <?php endif?>
-                                </li>
                             <?php endforeach?>
-
                         </ul>
                     </div>
                 </section>
-            </div>
-           
+            </div>           
         </div>
-
-
     </main>
-
 </body>
 </html>
