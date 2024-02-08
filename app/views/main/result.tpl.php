@@ -1,4 +1,4 @@
-<h1 class="result-title">Résultats de la recherche : <span><?=$_GET['search']?></span></h1>
+<h1 class="result-title">Résultats de la recherche : <span><?= $viewData['input']?></span></h1>
 <section class="results">
     <?php foreach ($result as $result): ?>
     <a href="<?= $router->generate('movie', ['id' => $result->getId()]) ?>" class="movie-result">

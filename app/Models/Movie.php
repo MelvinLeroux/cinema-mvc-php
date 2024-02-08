@@ -267,7 +267,7 @@ Class Movie{
             $pdo = Database::getPDO();
 
             // la requête
-            $sql = "SELECT * FROM `movies` WHERE `title` lIKE '%$params%'";
+            $sql = "SELECT * FROM `movies` WHERE `title` lIKE '%$params%' ORDER BY title" ;
             // on excéute la requête via PDO, on récupère un objet $pdoStatement
             $pdoStatement = $pdo->query($sql);
             // on utilise fetchAll pour récupérer les données depuis $pdoStatement

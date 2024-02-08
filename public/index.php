@@ -43,6 +43,37 @@ $router->map(
     'movie'
 );
 
+$router->map(
+    'GET',
+    '/director/[i:id]',
+    [
+        'controller' => 'MainController',
+        'method' => 'directorAction'
+    ],
+    'director'
+);
+
+$router->map(
+    'GET',
+    '/composer/[i:id]',
+    [
+        'controller' => 'MainController',
+        'method' => 'composerAction'
+    ],
+    'composer'
+);
+
+$router->map(
+    'GET',
+    '/actor/[i:id]',
+    [
+        'controller' => 'MainController',
+        'method' => 'ActorAction'
+    ],
+    'actor'
+);
+
+
 $match = $router->match();
 
 
