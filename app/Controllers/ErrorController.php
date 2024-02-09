@@ -11,6 +11,6 @@ class ErrorController extends CoreController
         // on modifie le status code de la réponse HTTP
         // @see https://www.php.net/manual/fr/function.http-response-code.php
         header('HTTP/1.0 404 Not Found');
-        $this->show('error404');
+        $this->show('error/error404');
     }
 }

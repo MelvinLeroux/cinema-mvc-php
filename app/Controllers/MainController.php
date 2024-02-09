@@ -44,7 +44,7 @@ class MainController extends CoreController {
 
         if ($movieTodisplay) {
             $directorToDisplay = $peopleModel->findDirectorByMovie($params);
-            $composerToDIsplay = $peopleModel->findComposerByMovie(($params));
+            $composerToDisplay = $peopleModel->findComposerByMovie(($params));
             $actorsToDisplay = $peopleModel->findactorsbyMovie($params);
 
             $this->show(
@@ -52,12 +52,12 @@ class MainController extends CoreController {
                 [
                     'movie' => $movieTodisplay,
                     'director' => $directorToDisplay,
-                    'composer'=>$composerToDIsplay,
+                    'composer'=>$composerToDisplay,
                     'actors'=>$actorsToDisplay,
                 ]
             );
         } else {
-            $this->show('error404');
+            $this->show('error/error404');
         }
     }
 
@@ -106,7 +106,7 @@ class MainController extends CoreController {
         $data = []; 
         $data['result'] = $actorPlayedIn;
         $data['input']= $data['result'][0]->getName();
-        
+
         $this->show('main/result', $data);
     }
 }

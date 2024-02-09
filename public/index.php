@@ -24,7 +24,6 @@ if (array_key_exists('BASE_URI', $_SERVER)) {
 $router->map(
     'GET',  
     '/',  
-    
     [    
         'controller' => 'MainController',
         'method' => 'homeAction'
@@ -94,10 +93,6 @@ $router->map(
 );
 
 $match = $router->match();
-
-
-
-
 
 // ---- DISPATCHER ----- 
 $dispatcher = new Dispatcher($match, 'ErrorController::err404');

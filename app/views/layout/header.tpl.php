@@ -8,20 +8,15 @@
     <link rel="stylesheet" href="<?= $absoluteUrl ?>/css/reset.css">
     <link rel="stylesheet" href="<?= $absoluteUrl ?>/css/fontawesome/css/fontawesome.css">
     <link rel="stylesheet" href="<?= $absoluteUrl ?>/css/fontawesome/css/solid.css">
-    <link rel="stylesheet" href="<?= $absoluteUrl ?>/css/style.css">
-    
+    <link rel="stylesheet" href="<?= $absoluteUrl ?>/css/style.css">  
 </head>
-
 <!-- Gestion de l'image de fond -->
 <?php
-
 $style = ""; 
-
 // Si la variable $movie existe, on est sur une page de détail de film
 if(isset($movie)) {
     $style = "background-image: var(--gradient),  url( https://image.tmdb.org/t/p/original/" .$movie->getBackgroundUrl() . ")";
-}
-?>
+}?>
 <body class="<?= $viewName ?>" style="<?= $style ?>" >
     <header class="classic-header">
         <a href="<?= $router->generate('home') ?>">
