@@ -2,7 +2,7 @@
         <div class="container">
             <div class="movie-wrapper">
                 <section class="poster">
-                    <img src="https://image.tmdb.org/t/p/original/<?= $movie->getPosterUrl() ?>" alt="Le voyage de Chihiro">
+                    <img src="https://image.tmdb.org/t/p/original/<?= $movie->getPosterUrl() ?>" alt="<?= $movie->getTitle()?>">
                     <i class="fa-regular fa-circle-play"></i>
                 </section>
                 <section class="details">
@@ -66,7 +66,7 @@
                                     <li>
                                     <h3><?= $actor->getName()?></h3>
                                     <a href="<?= $router->generate('actor', ['id' => $actor->getId()]) ?>">
-                                    <img src="https://image.tmdb.org/t/p/original/<?= $actor->getPictureUrl()?>" alt="Rumi Hiiragi">
+                                    <img src="https://image.tmdb.org/t/p/original/<?= $actor->getPictureUrl()?>" alt="<?= $actor->getName()?>">
                                 <?php endif?>
                                 </li>
                             <?php endforeach?>

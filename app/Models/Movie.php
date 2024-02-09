@@ -2,25 +2,47 @@
 
 namespace App\Models;
 use PDO;
-use App\Controllers\CoreController;
-use App\Controllers\MainController;
 use App\Utils\Database;
 
 Class Movie{
+    private $background_url;
+    private $composer_id;
+    private $director_id;
     private $id;
+    private $poster_url;
+    private $rating;
+    private $release_date;
     private $title;
     private $synopsis;
-    private $release_date;
-    private $rating;
-    private $poster_url;
-    private $background_url;
-    private $director_id;
-    private $composer_id;
-    private $composer;
-    private $director;
 
-
+    /* -------------
+    --- getters ---
+    --------------*/
     
+    /**
+     * Get the value of background_url
+     */ 
+    public function getBackgroundUrl()
+    {
+        return $this->background_url;
+    }
+
+    /**
+     * Get the value of composer_id
+     */ 
+    public function getComposerId()
+    {
+        return $this->composer_id;
+    }
+    
+    /**
+     * Get the value of director_id
+     */ 
+    public function getDirectorId()
+    {
+        return $this->director_id;
+    }
+
     /**
      * Get the value of id
      */ 
@@ -30,75 +52,11 @@ Class Movie{
     }
     
     /**
-     * Set the value of id
-     *
-     * @return  self
+     * Get the value of poster_url
      */ 
-    public function setId($id)
+    public function getPosterUrl()
     {
-        $this->id = $id;
-        
-        return $this;
-    }
-    
-    /**
-     * Get the value of title
-     */ 
-    public function getTitle()
-    {
-        return $this->title;
-    }
-    
-    /**
-     * Set the value of title
-     *
-     * @return  self
-     */ 
-    public function setTitle($title)
-    {
-        $this->title = $title;
-        
-        return $this;
-    }
-    
-    /**
-     * Get the value of synopsis
-     */ 
-    public function getSynopsis()
-    {
-        return $this->synopsis;
-    }
-    
-    /**
-     * Set the value of synopsis
-     *
-     * @return  self
-     */ 
-    public function setSynopsis($synopsis)
-    {
-        $this->synopsis = $synopsis;
-        
-        return $this;
-    }
-    
-    /**
-     * Get the value of release_date
-     */ 
-    public function getReleasedate()
-    {
-        return $this->release_date;
-    }
-    
-    /**
-     * Set the value of release_date
-     *
-     * @return  self
-     */ 
-    public function setRelease_date($release_date)
-    {
-        $this->release_date = $release_date;
-        
-        return $this;
+        return $this->poster_url;
     }
     
     /**
@@ -110,184 +68,63 @@ Class Movie{
     }
     
     /**
-     * Set the value of rating
-     *
-     * @return  self
+     * Get the value of release_date
      */ 
-    public function setRating($rating)
+    public function getReleasedate()
     {
-        $this->rating = $rating;
+        $original_date = $this->release_date;
+        $newDate = date("d-m-Y", strtotime($original_date));
         
-        return $this;
-    }
-    
-    /**
-     * Get the value of poster_url
-     */ 
-    public function getPosterUrl()
-    {
-        return $this->poster_url;
+        return $newDate;
     }
 
     /**
-     * Set the value of poster_url
-     *
-     * @return  self
+     * Get the value of synopsis
      */ 
-    public function setPosterUrl($poster_url)
+    public function getSynopsis()
     {
-        $this->poster_url = $poster_url;
-        
-        return $this;
-    }
-    
-    
-    
-    /**
-     * Get the value of director_id
-     */ 
-    public function getDirectorId()
-    {
-        return $this->director_id;
-    }
-    
-    /**
-     * Set the value of director_id
-     *
-     * @return  self
-     */ 
-    public function setDirectorId($director_id)
-    {
-        $this->director_id = $director_id;
-        
-        return $this;
-    }
-    
-    /**
-     * Get the value of composer_id
-     */ 
-    public function getComposerId()
-    {
-        return $this->composer_id;
-    }
-    
-    /**
-     * Set the value of composer_id
-     *
-     * @return  self
-     */ 
-    public function setComposerId($composer_id)
-    {
-        $this->composer_id = $composer_id;
-        
-        return $this;
-    }
-    
-    /**
-     * Get the value of background_url
-     */ 
-    public function getBackgroundUrl()
-    {
-        return $this->background_url;
-    }
-    
-    /**
-     * Set the value of background_url
-     *
-     * @return  self
-     */ 
-    public function setBackgroundUrl($background_url)
-    {
-        $this->background_url = $background_url;
-        
-        return $this;
-    }
-    
-    /**
-     * Get the value of composer
-     */ 
-    public function getComposer()
-    {
-    return new People ($this->composer);
+        return $this->synopsis;
     }
 
     /**
-     * Set the value of composer
-     *
-     * @return  self
+     * Get the value of title
      */ 
-    public function setComposer($composer)
+    public function getTitle()
     {
-        $this->composer = $composer;
-        
-        return $this;
+        return $this->title;
     }
     
-    /**
-     * Get the value of director
-     */ 
-    public function getDirector()
-    {
-        return new People ($this->director);
-    }
-    
-    /**
-     * Set the value of director
-     *
-     * @return  self
-     */ 
-    public function setDirector($director)
-    {
-                $this->director = $director;
-                
-                return $this;
-    }
-
-    public function getActors()
-    {
-        return new People ($this->director);
-    }
-    
-    /**
-     * Set the value of director
-     *
-     * @return  self
-     */ 
-    public function setActors($director)
-    {
-                $this->director = $director;
-                
-                return $this;
-    }
-
+    /* ---------------------
+    --- Database methods ---
+    ------------------------*/
 
     public function searchByTitle($params)
-        {
-            // on récupère PDO depuis Database
-            $pdo = Database::getPDO();
-
-            // la requête
-            $sql = "SELECT * FROM `movies` WHERE `title` lIKE '%$params%' ORDER BY title" ;
-            // on excéute la requête via PDO, on récupère un objet $pdoStatement
-            $pdoStatement = $pdo->query($sql);
-            // on utilise fetchAll pour récupérer les données depuis $pdoStatement
-            $movies = $pdoStatement->fetchAll(PDO::FETCH_CLASS, Movie::class);
-            
-            // on renvoie les données à l'appelant (le contrôleur)
-            return $movies;
-        }
-        
-    public function findMovie($id){
+    {
+        // on récupère PDO depuis Database
         $pdo = Database::getPDO();
-
-            // la requête
-            $sql = "SELECT * FROM `movies` WHERE `id`= $id ";
-            // on excéute la requête via PDO, on récupère un objet $pdoStatement
-            $pdoStatement = $pdo->query($sql);
-            // on utilise fetchAll pour récupérer les données depuis $pdoStatement
-            $movie = $pdoStatement->fetchObject(self::class);
-            return $movie;
-
+        // la requête
+        $sql = "SELECT * FROM `movies` WHERE `title` lIKE '%$params%' ORDER BY title" ;
+        // on excéute la requête via PDO, on récupère un objet $pdoStatement
+        $pdoStatement = $pdo->query($sql);
+        // on utilise fetchAll pour récupérer les données depuis $pdoStatement
+        $movies = $pdoStatement->fetchAll(PDO::FETCH_CLASS, Movie::class);
+        
+        // on renvoie les données à l'appelant (le contrôleur)
+        return $movies;
     }
         
+    public function findMovie($id)
+    {
+        // on récupère PDO depuis Database
+        $pdo = Database::getPDO();
+        // la requête
+        $sql = "SELECT * FROM `movies` WHERE `id`= $id ";
+        // on excéute la requête via PDO, on récupère un objet $pdoStatement
+        $pdoStatement = $pdo->query($sql);
+        // on utilise fetchAll pour récupérer les données depuis $pdoStatement
+        $movie = $pdoStatement->fetchObject(self::class);
+
+        // on renvoie les données à l'appelant (le contrôleur)
+        return $movie;
+    }       
 }

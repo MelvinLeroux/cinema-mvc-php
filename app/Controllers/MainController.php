@@ -1,55 +1,74 @@
 <?php 
 
 namespace App\Controllers;
-
 use App\Models\Movie as ModelsMovie;
 use App\Models\People;
-use Movie;
-use PDO;
-class MainController extends CoreController {
 
+class MainController extends CoreController {
     /**
-     * Méthode qui se charge d'afficher la page d'accueil
-     *
-     * @return void
-     */
+    * Méthode qui se charge d'afficher la page d'accueil
+    */
     public function homeAction()
-    {
-       
+    {  
         $this->show('main/home');
     }
+
+    /**
+    * Méthode qui se charge d'afficher les résultats d'une recherche
+    */
     public function searchAction()
     {
         if (isset($_GET['search'])){
             $params = $_GET['search'];
             $homeSearch = new ModelsMovie();
             $result = $homeSearch->searchByTitle($params);
-            
-        }
-        else {
+        } else {
             echo "Erreur 404 - la page n'existe pas";
         }
+
         $data = [];
         $data['result'] = $result;     
         $data['input']= $params;   
+
         $this->show('main/result', $data);
     }
-    public function movieAction($params){
+
+    /**
+    * Méthode qui se charge d'afficher les détails d'un film
+    */
+    public function movieAction($params)
+    {
         $movieModel = new ModelsMovie();
-        $movieTodisplay = $movieModel->findMovie($params['id']);
+        $movieTodisplay = $movieModel->findMovie($params);
         $peopleModel = new People();
+
         if ($movieTodisplay) {
-        $directorToDisplay = $peopleModel->findDirectorByMovie($params['id']);
-        $composerToDIsplay = $peopleModel->findComposerByMovie(($params['id']));
-        $actorsToDisplay = $peopleModel->findactorsbyMovie($params['id']);
+            $directorToDisplay = $peopleModel->findDirectorByMovie($params);
+            $composerToDIsplay = $peopleModel->findComposerByMovie(($params));
+            $actorsToDisplay = $peopleModel->findactorsbyMovie($params);
+
+            $this->show(
+                'details/movie',
+                [
+                    'movie' => $movieTodisplay,
+                    'director' => $directorToDisplay,
+                    'composer'=>$composerToDIsplay,
+                    'actors'=>$actorsToDisplay,
+                ]
+            );
+        } else {
+            $this->show('error404');
         }
-        $this->show ('details/movie',['movie' => $movieTodisplay,'director' => $directorToDisplay, 'composer'=>$composerToDIsplay, 'actors'=>$actorsToDisplay,]);
     }
+
+    /**
+    * Méthode qui se charge d'afficher les films d'un réalisateur
+    */
     public function directorAction($params)
     {
         // On récupère l'id du réalisateur
         $peopleModel = new People();
-        $directedBy = $peopleModel->moviesDirectedBy($params['id']);
+        $directedBy = $peopleModel->moviesDirectedBy($params);
 
         $data = [];
 
@@ -60,17 +79,13 @@ class MainController extends CoreController {
     }
 
     /**
-     * Méthode qui affiche tous les films d'un compositeur
-     * 
-     * @param array $urlParams
-     * @return void
-     */
-
+    * Méthode qui se charge d'afficher les films d'un compositeur
+    */
     public function composerAction($params)
     {
         // On récupère l'id du compositeur
         $peopleModel = new People();
-        $composedBy = $peopleModel->moviesComposedBy($params['id']);
+        $composedBy = $peopleModel->moviesComposedBy($params);
 
         $data = [];
 
@@ -81,26 +96,17 @@ class MainController extends CoreController {
     }
 
     /**
-     * Méthode qui affiche tous les films d'un acteur
-     * 
-     * @param array $urlParams
-     * @return void
-     */
-
+    * Méthode qui se charge d'afficher les films d'un compositeur
+    */
     public function actorAction($params)
     {
-        
-
-        // On récupère l'acteur correspondant à l'id
+        // On récupère l'id de l'acteur
         $peopleModel = new People();
-        $actorPlayedIn = $peopleModel->actorPlayedIn($params['id']);
-        
-        $data = [];
-        
+        $actorPlayedIn = $peopleModel->actorPlayedIn($params);
+        $data = []; 
         $data['result'] = $actorPlayedIn;
         $data['input']= $data['result'][0]->getName();
-
-
+        
         $this->show('main/result', $data);
     }
 }

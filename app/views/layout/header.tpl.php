@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="<?= $absoluteUrl ?>/css/fontawesome/css/fontawesome.css">
     <link rel="stylesheet" href="<?= $absoluteUrl ?>/css/fontawesome/css/solid.css">
     <link rel="stylesheet" href="<?= $absoluteUrl ?>/css/style.css">
+    
 </head>
 
 <!-- Gestion de l'image de fond -->
