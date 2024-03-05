@@ -5,10 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amaflix+</title>
-    <link rel="stylesheet" href="<?= $absoluteUrl ?>/css/reset.css">
-    <link rel="stylesheet" href="<?= $absoluteUrl ?>/css/fontawesome/css/fontawesome.css">
-    <link rel="stylesheet" href="<?= $absoluteUrl ?>/css/fontawesome/css/solid.css">
-    <link rel="stylesheet" href="<?= $absoluteUrl ?>/css/style.css">  
+    <link rel="stylesheet" href="<?= $absoluteUrl ?>css/reset.css">
+    <link rel="stylesheet" href="<?= $absoluteUrl ?>css/fontawesome/css/fontawesome.css">
+    <link rel="stylesheet" href="<?= $absoluteUrl ?>css/fontawesome/css/solid.css">
+    <link rel="stylesheet" href="<?= $absoluteUrl ?>css/style.css">  
 </head>
 <!-- Gestion de l'image de fond -->
 <?php
